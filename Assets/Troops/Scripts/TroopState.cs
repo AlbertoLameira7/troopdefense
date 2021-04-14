@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
 public abstract class TroopState
 {
-    /*protected PlayerController Entity;
+    protected Troop Entity;
 
-    public PlayerState(PlayerController entity)
+    public TroopState(Troop entity)
     {
         Entity = entity;
-    }*/
+    }
 
     public virtual void Enter() {}
 

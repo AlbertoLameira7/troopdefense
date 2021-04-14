@@ -1,27 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI;
+﻿using UnityEngine;
 
-public class AllyTroop : Troop
+public class AllyTroop : Troop, ISelectableUnit
 {
-    public NavMeshAgent NavMeshAgentComponent { get; private set; }
- 
-    // Start is called before the first frame update
-    void Start()
-    {
-        NavMeshAgentComponent = gameObject.GetComponent<NavMeshAgent>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //TODO: Change this method to use the state machine
     public void MoveToPosition(Vector3 pos)
     {
         NavMeshAgentComponent.destination = pos;
+    }
+
+    public string GetName()
+    {
+        return Name;
+    }
+
+    public int GetHP()
+    {
+        return HealthPoints;
     }
 
     //TODO: add on trigger enter event to detect enemies and change state to attack

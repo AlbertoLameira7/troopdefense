@@ -1,22 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Building : MonoBehaviour
+public class Building : MonoBehaviour, ISelectableUnit
 {
     [SerializeField] private string Name;
     [SerializeField] private int HealthPoints;
     [SerializeField] private int Defence;
 
-    // Start is called before the first frame update
-    void Start()
+    public string GetName()
     {
-        
+        return Name;
     }
 
-    // Update is called once per frame
-    void Update()
+    public int GetHP()
     {
-        
+        return HealthPoints;
     }
 }

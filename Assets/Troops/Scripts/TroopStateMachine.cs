@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TroopStateMachine : MonoBehaviour
 {
     protected TroopState troopState;
+    protected TroopState previousTroopState;
 
     public void ChangeState(TroopState state)
     {

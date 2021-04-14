@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 
 public class InputManager : MonoBehaviour
@@ -17,7 +15,7 @@ public class InputManager : MonoBehaviour
 
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
             {
-                if (hit.collider.gameObject.CompareTag("Ally_Troop") || hit.collider.gameObject.CompareTag("Building"))
+                if (hit.collider.gameObject.GetComponent<ISelectableUnit>() != null)
                 {
                     // Run subscribed event function from game Manager and set current selected target as the GameObject Hit by raycast
                     SelectUnit(hit.collider.gameObject);

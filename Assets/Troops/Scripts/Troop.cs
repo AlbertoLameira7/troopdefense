@@ -1,14 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.AI;
 
 public abstract class Troop : TroopStateMachine
 {
-    [SerializeField] private string Name;
-    [SerializeField] private int HealthPoints;
-    [SerializeField] private int AttackDamage;
-    [SerializeField] private int Defence;
-    [SerializeField] private int MoveSpeed;
+    public NavMeshAgent NavMeshAgentComponent { get; protected set; }
 
-    public virtual void InitializeTroop() {}
+    [SerializeField] protected string Name;
+    [SerializeField] protected int HealthPoints;
+    [SerializeField] protected int AttackDamage;
+    [SerializeField] protected int Defence;
+
+    void Awake()
+    {
+        NavMeshAgentComponent = gameObject.GetComponent<NavMeshAgent>();
+    }
 }

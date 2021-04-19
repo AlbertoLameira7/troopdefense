@@ -243,10 +243,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725eca62dfda4e44da80bbc1b1139f76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentTarget: {fileID: 0}
+  canAttack: 0
   Name: Soldier
   MaxHealthPoints: 5
   AttackDamage: 5
   Defence: 1
+  AttackSpeed: 2.5
   _troopsInRange: []
 --- !u!1 &4481189975984083011
 GameObject:
@@ -258,9 +261,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6001367498188992663}
   - component: {fileID: 7556784531805527230}
+  - component: {fileID: 534309203}
   m_Layer: 2
   m_Name: Action_Collider
-  m_TagString: Untagged
+  m_TagString: Action_Collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -292,6 +296,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &534309203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4481189975984083011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09f8911593949e24c8f190ea14435dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4600418086873061817
 GameObject:
   m_ObjectHideFlags: 0

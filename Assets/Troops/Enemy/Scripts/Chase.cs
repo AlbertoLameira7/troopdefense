@@ -11,14 +11,21 @@ public class Chase : TroopState
     public override void Enter()
     {
         var newEnt = (EnemyTroop)Entity; //Temporary solution, only enemies can patrol for now
-        newEnt.NavMeshAgentComponent.destination = newEnt._troopsInRange[0].transform.position;
+        if (newEnt.GetTroopsInRage().Count > 0)
+        {
+            newEnt.NavMeshAgentComponent.destination = newEnt.GetFirstTroopInRange().transform.position;
+        } else
+        {
+            newEnt.ChangeState(new Patrol(newEnt));
+        }
+
     }
 
     public override void Execute()
     {
         // update with new target pos
         var newEnt = (EnemyTroop)Entity; //Temporary solution, only enemies can patrol for now
-        newEnt.NavMeshAgentComponent.destination = newEnt._troopsInRange[0].transform.position;
+        newEnt.NavMeshAgentComponent.destination = newEnt.GetFirstTroopInRange().transform.position;
 
         // check if close enough, stop and change state to attack
         if (!Entity.NavMeshAgentComponent.pathPending)

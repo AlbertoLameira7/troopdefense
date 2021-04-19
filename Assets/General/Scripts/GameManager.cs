@@ -6,10 +6,13 @@ public class GameManager : MonoBehaviour
 {
     public static Action<GameObject> ShowUnitOnUI;
     public static Action ResetUI;
+    public static Action<GameObject> RemoveTroopFromInRange;
 
     [SerializeField] private Vector3 _position = Vector3.zero;
     [SerializeField] private GameObject _prefab;
     [SerializeField] private int _maxTroopCount = 5;
+    [SerializeField] private List<GameObject> _enemies;
+    [SerializeField] private GameObject _winScreen;
     private GameObject _currentSelected;
     private List<GameObject> _troops;
 
@@ -36,6 +39,7 @@ public class GameManager : MonoBehaviour
         InputManager.SelectUnit += SelectUnit;
         InputManager.UnSelectUnit += UnSelectUnit;
         InputManager.MoveTroop += MoveTroop;
+        Troop.RemoveTroopFromGame += RemoveTroopFromGame;
     }
 
     void OnDisable()
@@ -43,6 +47,7 @@ public class GameManager : MonoBehaviour
         InputManager.SelectUnit -= SelectUnit;
         InputManager.UnSelectUnit -= UnSelectUnit;
         InputManager.MoveTroop -= MoveTroop;
+        Troop.RemoveTroopFromGame -= RemoveTroopFromGame;
     }
 
     void UnSelectUnit()
@@ -64,5 +69,27 @@ public class GameManager : MonoBehaviour
             //move troop to location
             _currentSelected.GetComponent<AllyTroop>().MoveToPosition(position);
         }
+    }
+
+    void RemoveTroopFromGame(GameObject troop)
+    {
+        RemoveTroopFromInRange(troop);
+
+        if (troop.GetComponent<EnemyTroop>())
+        {
+            _enemies.Remove(troop);
+
+            if (_enemies.Count <= 0)
+            {
+                GameOver();
+            }
+        }
+
+        Destroy(troop);
+    }
+
+    void GameOver()
+    {
+        _winScreen.SetActive(true);
     }
 }

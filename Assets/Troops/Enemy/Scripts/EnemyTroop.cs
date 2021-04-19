@@ -31,7 +31,7 @@ public class EnemyTroop : Troop
 
         if (Input.GetMouseButtonDown(0))
         {
-            TakeDamage(1);
+            //TakeDamage(1);
         }
 
         UpdateState();

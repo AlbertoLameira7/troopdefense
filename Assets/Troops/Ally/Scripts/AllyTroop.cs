@@ -18,6 +18,17 @@ public class AllyTroop : Troop, ISelectableUnit
         return _currentHealthPoints;
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        ChangeState(new Idle(this));
+    }
+
+    void Update()
+    {
+        UpdateState();
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<EnemyTroop>() && !_troopsInRange.Contains(other.gameObject))

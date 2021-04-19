@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System;
@@ -6,37 +7,91 @@ using System;
 public abstract class Troop : TroopStateMachine, Damageable
 {
     public NavMeshAgent NavMeshAgentComponent { get; protected set; }
-    public static Action<float> DamageUnit;
+    public Troop currentTarget;
+    public bool canAttack;
+    public static Action<GameObject> RemoveTroopFromGame;
 
     [SerializeField] protected string Name;
     [SerializeField] protected float MaxHealthPoints;
     [SerializeField] protected int AttackDamage;
     [SerializeField] protected int Defence;
+    [SerializeField] protected float AttackSpeed;
 
     protected float _currentHealthPoints;
+    public List<GameObject> _troopsInRange = new List<GameObject>();
 
-    public List<GameObject> _troopsInRange;
+    private HealthBar _healthBar;
 
-    void Awake()
+    protected virtual void Awake()
     {
         NavMeshAgentComponent = gameObject.GetComponent<NavMeshAgent>();
+        _healthBar = transform.Find("HealthBar").gameObject.GetComponent<HealthBar>();
     }
 
     void OnEnable()
     {
+        GameManager.RemoveTroopFromInRange += RemoveTroopFromInRange;
         _currentHealthPoints = MaxHealthPoints;
+        canAttack = true;
+    }
+
+    void OnDisable()
+    {
+        GameManager.RemoveTroopFromInRange -= RemoveTroopFromInRange;
     }
 
     public void TakeDamage(int damageValue)
     {
         _currentHealthPoints -= damageValue;
         var healthPercentage = ((_currentHealthPoints - 0) / (MaxHealthPoints - 0)) * 100;
-        DamageUnit(healthPercentage);
+        _healthBar.UpdateHealthBar(healthPercentage);
 
         if (_currentHealthPoints <= 0)
         {
             // send event to gameManager to destroy this object
-            Destroy(gameObject); //temporary solution
+            DestroyTroop();
         }
+    }
+
+    void DestroyTroop()
+    {
+        RemoveTroopFromGame(gameObject);
+    }
+
+    void RemoveTroopFromInRange(GameObject troop)
+    {
+        _troopsInRange.Remove(troop);
+    }
+
+    public List<GameObject> GetTroopsInRage()
+    {
+        return _troopsInRange;
+    }
+
+    public GameObject GetFirstTroopInRange()
+    {
+        return _troopsInRange[0];
+    }
+
+    public float GetAttackSpeed()
+    {
+        return AttackSpeed;
+    }
+
+    public int GetAttackDamage()
+    {
+        return AttackDamage;
+    }
+
+    public void WaitForNextAttack()
+    {
+        canAttack = false;
+        StartCoroutine("WaitForAttack");
+    }
+
+    IEnumerator WaitForAttack()
+    {
+        yield return new WaitForSeconds(AttackSpeed);
+        canAttack = true;
     }
 }

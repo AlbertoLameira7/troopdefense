@@ -150,11 +150,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e453c66c47384ca4faaa06acf6ee560e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentTarget: {fileID: 0}
+  canAttack: 0
   Name: Evil
   MaxHealthPoints: 7
   AttackDamage: 1
   Defence: 0
-  _currentHealthPoints: 1
+  AttackSpeed: 1
   _troopsInRange: []
   nextPatrolPointIndex: 0
   _patrolPoints:
@@ -169,7 +171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 909986207593214695}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Senses
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 870053355062231988}
   - component: {fileID: 1084840334235156925}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sensing_Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,9 +247,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8494430249498306662}
   - component: {fileID: 3176407455593764784}
-  m_Layer: 0
+  - component: {fileID: 564897709}
+  m_Layer: 2
   m_Name: Action_Collider
-  m_TagString: Untagged
+  m_TagString: Action_Collider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -279,6 +282,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &564897709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7077165168464205399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09f8911593949e24c8f190ea14435dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7108482587417341673
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +305,6 @@ GameObject:
   - component: {fileID: 3074332461652523505}
   - component: {fileID: 796531983004304944}
   - component: {fileID: 3507315453011186823}
-  - component: {fileID: 1034896971170558642}
   - component: {fileID: 364757720}
   m_Layer: 0
   m_Name: HealthBar
@@ -360,20 +374,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &1034896971170558642
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7108482587417341673}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &364757720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,4 +387,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rend: {fileID: 3507315453011186823}
-  _currentHealth: 0

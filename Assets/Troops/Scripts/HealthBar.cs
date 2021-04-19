@@ -2,19 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShaderScript : MonoBehaviour
+public class HealthBar : MonoBehaviour
 {
     [SerializeField] Renderer _rend;
-
-    void OnEnable()
-    {
-        Troop.DamageUnit += UpdateHealthBar;
-    }
-
-    void OnDisable()
-    {
-        Troop.DamageUnit -= UpdateHealthBar;
-    }
 
     // Update is called once per frame
     void Update()
@@ -22,7 +12,7 @@ public class ShaderScript : MonoBehaviour
         _rend.transform.rotation = Camera.main.transform.rotation;
     }
 
-    void UpdateHealthBar(float healthValue)
+    public void UpdateHealthBar(float healthValue)
     {
         _rend.material.SetFloat("_Health", healthValue);
     }

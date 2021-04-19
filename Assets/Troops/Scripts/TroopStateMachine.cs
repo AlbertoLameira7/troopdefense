@@ -9,6 +9,7 @@ public class TroopStateMachine : MonoBehaviour
     {
         if (troopState != null)
         {
+            previousTroopState = troopState;
             troopState.Exit();
         }
 
@@ -19,5 +20,11 @@ public class TroopStateMachine : MonoBehaviour
     public void UpdateState()
     {
         troopState.Execute();
+    }
+
+    public void ChangeToPreviousState()
+    {
+        troopState = previousTroopState;
+        troopState.Enter();
     }
 }

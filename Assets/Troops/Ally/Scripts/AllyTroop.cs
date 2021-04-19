@@ -13,10 +13,24 @@ public class AllyTroop : Troop, ISelectableUnit
         return Name;
     }
 
-    public int GetHP()
+    public float GetHP()
     {
-        return HealthPoints;
+        return _currentHealthPoints;
     }
 
-    //TODO: add on trigger enter event to detect enemies and change state to attack
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<EnemyTroop>() && !_troopsInRange.Contains(other.gameObject))
+        {
+            _troopsInRange.Add(other.gameObject);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<EnemyTroop>() && _troopsInRange.Contains(other.gameObject))
+        {
+            _troopsInRange.Remove(other.gameObject);
+        }
+    }
 }

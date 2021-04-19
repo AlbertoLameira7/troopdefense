@@ -2,5 +2,5 @@
 public interface ISelectableUnit
 {
     string GetName();
-    int GetHP();
+    float GetHP();
 }

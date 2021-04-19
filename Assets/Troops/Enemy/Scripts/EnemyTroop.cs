@@ -9,6 +9,7 @@ public class EnemyTroop : Troop
 
     [SerializeField]
     private List<GameObject> _patrolPoints = new List<GameObject>();
+    private bool _isChasing;
 
     void Start()
     {
@@ -18,8 +19,37 @@ public class EnemyTroop : Troop
 
     void Update()
     {
+        if (_troopsInRange.Count > 0 && !_isChasing)
+        {
+            _isChasing = true;
+            ChangeState(new Chase(this));
+        } else if (_troopsInRange.Count <= 0 && _isChasing)
+        {
+            _isChasing = false;
+            ChangeToPreviousState();
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            TakeDamage(1);
+        }
+
         UpdateState();
     }
 
-    //TODO: add on trigger enter event to detect troops and change state to attack
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<AllyTroop>() && !_troopsInRange.Contains(other.gameObject))
+        {
+            _troopsInRange.Add(other.gameObject);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<AllyTroop>() && _troopsInRange.Contains(other.gameObject))
+        {
+            _troopsInRange.Remove(other.gameObject);
+        }
+    }
 }

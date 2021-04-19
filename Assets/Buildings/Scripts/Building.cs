@@ -3,7 +3,7 @@
 public class Building : MonoBehaviour, ISelectableUnit
 {
     [SerializeField] private string Name;
-    [SerializeField] private int HealthPoints;
+    [SerializeField] private float HealthPoints;
     [SerializeField] private int Defence;
 
     public string GetName()
@@ -11,7 +11,7 @@ public class Building : MonoBehaviour, ISelectableUnit
         return Name;
     }
 
-    public int GetHP()
+    public float GetHP()
     {
         return HealthPoints;
     }
